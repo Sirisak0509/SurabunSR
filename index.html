@@ -10,20 +10,69 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Sarabun', sans-serif; }
+        body { 
+            font-family: 'Sarabun', sans-serif; 
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .table-row-hover:hover {
+            background: linear-gradient(90deg, rgba(59, 130, 246, 0.05) 0%, rgba(147, 51, 234, 0.05) 100%);
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
     <!-- Header -->
-    <div class="bg-white shadow-lg">
-        <div class="max-w-6xl mx-auto px-6 py-4">
+    <div class="glass-effect shadow-xl border-b border-white/20">
+        <div class="max-w-6xl mx-auto px-6 py-6">
             <div class="flex items-center space-x-4">
-                <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
-                    <span class="text-white font-bold text-lg">📄</span>
+                <div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center floating-animation shadow-lg">
+                    <span class="text-white font-bold text-2xl">📄</span>
                 </div>
                 <div>
-                    <h1 class="text-2xl font-bold text-gray-800">ระบบเลขหนังสือออก</h1>
-                    <p class="text-gray-600">โรงเรียนสหราษฎร์รังสฤษดิ์</p>
+                    <h1 class="text-3xl font-bold gradient-text">ระบบเลขหนังสือออก</h1>
+                    <p class="text-gray-600 text-lg">โรงเรียนสหราษฎร์รังสฤษดิ์</p>
+                    <div class="flex items-center space-x-2 mt-1">
+                        <div class="w-2 h-2 bg-green-500 rounded-full pulse-animation"></div>
+                        <span class="text-sm text-green-600 font-medium">ระบบพร้อมใช้งาน</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -31,8 +80,13 @@
 
     <div class="max-w-6xl mx-auto px-6 py-8">
         <!-- Form Section -->
-        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
-            <h2 class="text-xl font-semibold text-gray-800 mb-6">ขอเลขหนังสือออก</h2>
+        <div class="glass-effect rounded-2xl shadow-2xl p-8 mb-8 card-hover border border-white/20">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
+                    <span class="text-white text-sm">✍️</span>
+                </div>
+                <h2 class="text-2xl font-semibold gradient-text">ขอเลขหนังสือออก</h2>
+            </div>
             
             <form id="documentForm" class="space-y-6">
                 <!-- ชื่อเรื่อง -->
@@ -75,48 +129,57 @@
                     <textarea id="notes" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="กรอกหมายเหตุ (ถ้ามี)"></textarea>
                 </div>
 
-                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200">
-                    ขอเลขหนังสือ
+                <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-4 px-6 rounded-xl transition duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02] flex items-center justify-center space-x-2">
+                    <span>📝</span>
+                    <span>ขอเลขหนังสือ</span>
                 </button>
             </form>
         </div>
 
         <!-- History Section -->
-        <div class="bg-white rounded-xl shadow-lg p-8">
+        <div class="glass-effect rounded-2xl shadow-2xl p-8 card-hover border border-white/20">
             <div class="flex justify-between items-center mb-6">
                 <div class="flex items-center space-x-4">
-                    <h2 class="text-xl font-semibold text-gray-800">ประวัติการขอเลขหนังสือ</h2>
-                    <select id="yearFilter" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <div class="w-8 h-8 bg-gradient-to-r from-green-500 to-blue-500 rounded-lg flex items-center justify-center">
+                        <span class="text-white text-sm">📊</span>
+                    </div>
+                    <h2 class="text-2xl font-semibold gradient-text">ประวัติการขอเลขหนังสือ</h2>
+                    <select id="yearFilter" class="px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm bg-white/80">
                         <option value="">เลือกปี</option>
                     </select>
                 </div>
                 <div class="space-x-3">
-                    <button id="downloadBtn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition duration-200">
+                    <button id="downloadBtn" class="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-6 py-3 rounded-xl transition duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
                         📊 ดาวน์โหลด Excel
                     </button>
-                    <button id="editBtn" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg transition duration-200">
+                    <button id="editBtn" class="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-6 py-3 rounded-xl transition duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
                         ✏️ แก้ไข
                     </button>
                 </div>
             </div>
             
-            <div class="overflow-x-auto">
-                <table class="w-full border-collapse">
+            <div class="overflow-x-auto rounded-xl border border-gray-200">
+                <table class="w-full border-collapse bg-white/50">
                     <thead>
-                        <tr class="bg-gray-50">
-                            <th class="border border-gray-300 px-4 py-3 text-left">เลขหนังสือ</th>
-                            <th class="border border-gray-300 px-4 py-3 text-left">ชื่อเรื่อง</th>
-                            <th class="border border-gray-300 px-4 py-3 text-left">จาก</th>
-                            <th class="border border-gray-300 px-4 py-3 text-left">ถึง</th>
-                            <th class="border border-gray-300 px-4 py-3 text-left">ผู้ขอเลข</th>
-                            <th class="border border-gray-300 px-4 py-3 text-left">วันที่</th>
-                            <th id="actionColumn" class="border border-gray-300 px-4 py-3 text-left hidden">จัดการ</th>
+                        <tr class="bg-gradient-to-r from-blue-50 to-purple-50">
+                            <th class="border-b border-gray-200 px-6 py-4 text-left font-semibold text-gray-700">เลขหนังสือ</th>
+                            <th class="border-b border-gray-200 px-6 py-4 text-left font-semibold text-gray-700">ชื่อเรื่อง</th>
+                            <th class="border-b border-gray-200 px-6 py-4 text-left font-semibold text-gray-700">จาก</th>
+                            <th class="border-b border-gray-200 px-6 py-4 text-left font-semibold text-gray-700">ถึง</th>
+                            <th class="border-b border-gray-200 px-6 py-4 text-left font-semibold text-gray-700">ผู้ขอเลข</th>
+                            <th class="border-b border-gray-200 px-6 py-4 text-left font-semibold text-gray-700">วันที่</th>
+                            <th id="actionColumn" class="border-b border-gray-200 px-6 py-4 text-left font-semibold text-gray-700 hidden">จัดการ</th>
                         </tr>
                     </thead>
                     <tbody id="historyTable">
                         <tr>
-                            <td colspan="6" class="border border-gray-300 px-4 py-8 text-center text-gray-500">
-                                กำลังโหลดข้อมูล...
+                            <td colspan="6" class="border-b border-gray-100 px-6 py-8 text-center text-gray-500">
+                                <div class="flex items-center justify-center space-x-2">
+                                    <div class="w-4 h-4 bg-blue-500 rounded-full animate-bounce"></div>
+                                    <div class="w-4 h-4 bg-purple-500 rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+                                    <div class="w-4 h-4 bg-pink-500 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                                    <span class="ml-3">กำลังโหลดข้อมูล...</span>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
@@ -124,6 +187,52 @@
             </div>
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-800 to-indigo-900 text-white mt-16">
+        <div class="max-w-6xl mx-auto px-6 py-12">
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                            <span class="text-xl">🏫</span>
+                        </div>
+                        <h3 class="text-xl font-semibold">ระบบขอเลขหนังสือออก</h3>
+                    </div>
+                    <p class="text-blue-100 leading-relaxed">
+                        โรงเรียนสหราษฎร์รังสฤษดิ์<br>
+                        สำนักงานเขตพื้นที่การศึกษามัธยมศึกษานครพนม<br>
+                        อำเภอศรีสงคราม จังหวัดนครพนม
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4 flex items-center">
+                        <span class="mr-2">📞</span>
+                        ติดต่อเจ้าหน้าที่
+                    </h4>
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                                <span class="text-sm">📱</span>
+                            </div>
+                            <span class="text-blue-100">0912345678</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                                <span class="text-sm">💻</span>
+                            </div>
+                            <span class="text-blue-100">ระบบจัดการเอกสารออนไลน์</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-blue-700 mt-8 pt-8 text-center">
+                <p class="text-blue-200 text-sm">
+                    © 2024 โรงเรียนสหราษฎร์รังสฤษดิ์ - ระบบขอเลขหนังสือออก
+                </p>
+            </div>
+        </div>
+    </footer>
 
     <!-- Document Number Popup -->
     <div id="documentPopup" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
@@ -345,12 +454,14 @@
         });
 
         // Load documents from Firebase
-        async function loadDocuments(selectedYear = null) {
+        async function loadDocuments(selectedBuddhistYear = null) {
             try {
                 let query = db.collection('documents').orderBy('timestamp', 'desc');
                 
-                if (selectedYear) {
-                    query = query.where('year', '==', parseInt(selectedYear));
+                if (selectedBuddhistYear) {
+                    // Convert Buddhist year to Christian year for database query
+                    const christianYear = parseInt(selectedBuddhistYear) - 543;
+                    query = query.where('year', '==', christianYear);
                 }
                 
                 const snapshot = await query.get();
@@ -390,20 +501,27 @@
             const colspan = editMode ? '7' : '6';
             
             if (documents.length === 0) {
-                historyTable.innerHTML = `<tr><td colspan="${colspan}" class="border border-gray-300 px-4 py-8 text-center text-gray-500">ยังไม่มีข้อมูล</td></tr>`;
+                const selectedBuddhistYear = yearFilter.value;
+                let message = 'ยังไม่มีข้อมูล';
+                
+                if (selectedBuddhistYear) {
+                    message = `ไม่พบข้อมูลในปี พ.ศ. ${selectedBuddhistYear}`;
+                }
+                
+                historyTable.innerHTML = `<tr><td colspan="${colspan}" class="border-b border-gray-100 px-6 py-8 text-center text-gray-500">${message}</td></tr>`;
                 return;
             }
 
             historyTable.innerHTML = documents.map(doc => `
-                <tr class="hover:bg-gray-50">
-                    <td class="border border-gray-300 px-4 py-3">${doc.documentNumber}</td>
-                    <td class="border border-gray-300 px-4 py-3">${doc.title}</td>
-                    <td class="border border-gray-300 px-4 py-3">${doc.from}</td>
-                    <td class="border border-gray-300 px-4 py-3">${doc.to}</td>
-                    <td class="border border-gray-300 px-4 py-3">${doc.requester}</td>
-                    <td class="border border-gray-300 px-4 py-3">${doc.timestamp.toDate().toLocaleDateString('th-TH')}</td>
-                    ${editMode ? `<td class="border border-gray-300 px-4 py-3">
-                        <button onclick="editDocument('${doc.id}')" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm transition duration-200">แก้ไข</button>
+                <tr class="table-row-hover transition-all duration-200">
+                    <td class="border-b border-gray-100 px-6 py-4 font-medium text-blue-600">${doc.documentNumber}</td>
+                    <td class="border-b border-gray-100 px-6 py-4">${doc.title}</td>
+                    <td class="border-b border-gray-100 px-6 py-4 text-gray-600">${doc.from}</td>
+                    <td class="border-b border-gray-100 px-6 py-4 text-gray-600">${doc.to}</td>
+                    <td class="border-b border-gray-100 px-6 py-4">${doc.requester}</td>
+                    <td class="border-b border-gray-100 px-6 py-4 text-gray-500">${doc.timestamp.toDate().toLocaleDateString('th-TH')}</td>
+                    ${editMode ? `<td class="border-b border-gray-100 px-6 py-4">
+                        <button onclick="editDocument('${doc.id}')" class="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white px-4 py-2 rounded-lg text-sm transition duration-300 shadow-md hover:shadow-lg transform hover:scale-105">แก้ไข</button>
                     </td>` : ''}
                 </tr>
             `).join('');
@@ -623,5 +741,5 @@
         // Load documents on page load
         loadDocuments();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9784f72107b27b68',t:'MTc1NjczMTc4MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'978526735479272d',t:'MTc1NjczMzcxOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
